@@ -3,13 +3,22 @@ package ru.technopolis.practice;
 import java.util.*;
 import java.io.*;
 
-public class Summ {
+public class Prime {
     FastScanner in;
     PrintWriter out;
 
-    public void solve(int a, int b) throws IOException {
-        Integer tmp = new Integer(a + b);
-        out.append(tmp.toString() + '\n');
+    public void solve(long a) throws IOException {
+        if (a < 2) {
+            out.append("False");
+            return;
+        }
+        for (long i = 2; i * i <= a; i++) {
+            if (a % i == 0) {
+                out.append("False");
+                return;
+            }
+        }
+        out.append("True");
     }
 
     public void run() {
@@ -17,10 +26,7 @@ public class Summ {
             in = new FastScanner(new File("input.txt"));
             out = new PrintWriter(new File("output.txt"));
 
-            int numberOfTests = in.nextInt();
-            for (int i = 0; i < numberOfTests; i++) {
-                solve(in.nextInt(), in.nextInt());
-            }
+            solve(in.nextLong());
 
             out.close();
         } catch (IOException e) {
@@ -54,9 +60,13 @@ public class Summ {
         int nextInt() {
             return Integer.parseInt(next());
         }
+        
+        long nextLong() {
+            return Long.parseLong(next());
+        }
     }
 
     public static void main(String[] arg) {
-        new Summ().run();
+        new Prime().run();
     }
 }
