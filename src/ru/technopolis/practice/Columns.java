@@ -3,7 +3,8 @@ package ru.technopolis.practice;
 import java.util.*;
 import java.io.*;
 
-public class Columns {    FastScanner in;
+public class Columns {
+    FastScanner in;
     PrintWriter out;
 
     public void solve() throws IOException {
