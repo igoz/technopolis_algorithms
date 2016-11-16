@@ -7,49 +7,54 @@ public class Mutants {
     FastScanner in;
     PrintWriter out;
 
-    public void solve() throws IOException {
-        Integer quantity = in.nextInt();
-        Integer[] colorArray = new Integer[quantity];
-        for (int i = 0; i < quantity; i++) {
-            colorArray[i] = in.nextInt();
-        }
-        int numberOfQueries = in.nextInt();
-//        long[] keys = new long[numberOfQueries];
-//        long[] values = new long[numberOfQueries];  //or just use LinkedHashMap, it preserve insertion order
-//        for (int i = 0; i < numberOfQueries; i++) {
-//            keys[i] = in.nextInt();
-//            values[i] = 0;
-//        }
-//        for (int i = 0; i < quantity; i++) {
-//            for (int j = 0; j < numberOfQueries; j++) {
-//                if (colorArray[i] == keys[j]) {
-//                    values[j]++;
-//                    break;
-//                }
-//            }
-//        }
-
-        LinkedHashMap<Integer, Integer> colorMap = new LinkedHashMap<>();
-        for (int i = 0; i < numberOfQueries; i++) {
-            colorMap.put(in.nextInt(), 0);
-        }
-        for (int i = 0; i < quantity; i++) {
-            if (colorMap.containsKey(colorArray[i])) {
-                colorMap.put(colorArray[i], colorMap.get(colorArray[i]) + 1);
+    int binarySearch(int[] array, int key) {
+        int left = -1;
+        int right = array.length;
+        while (left < right - 1) {
+            int mid = (left + right) / 2;
+            if (array[mid] < key) {
+                left = mid;
+            } else {
+                right = mid;
             }
         }
 
-        for (Map.Entry<Integer, Integer> entry: colorMap.entrySet()) {
-            out.append(entry.getValue() + "\n");
+        if (right > array.length - 1) {
+            return -1;
         }
+        return right;
+    }
 
-
+    public void solve() throws IOException {
+        int quantity = in.nextInt();
+        int[] mutantsArray = new int[quantity];
+        for (int i = 0; i < quantity; i++) {
+            mutantsArray[i] = in.nextInt();
+        }
+        int numberOfQueries = in.nextInt();
+        for (int i = 0; i < numberOfQueries; i++) {
+            int key = in.nextInt();
+            int tmp = binarySearch(mutantsArray, key);
+            if (tmp != -1) {
+                int cnt = 0;
+                for (int j = tmp; j < mutantsArray.length; j++) {
+                    if (mutantsArray[j] == key) {
+                        cnt++;
+                    } else {
+                        break;
+                    }
+                }
+                out.append(cnt + "\n");
+            } else {
+                out.append(0 + "\n");
+            }
+        }
     }
 
     public void run() {
         try {
-            in = new FastScanner(new File("/home/igoz/IdeaProjects/technopolis_algorithms/src/ru/technopolis/practice/input.txt"));
-            out = new PrintWriter(new File("/home/igoz/IdeaProjects/technopolis_algorithms/src/ru/technopolis/practice/output.txt"));
+            in = new FastScanner(new File("input.txt"));
+            out = new PrintWriter(new File("output.txt"));
 
             solve();
 

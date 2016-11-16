@@ -1,0 +1,64 @@
+package ru.technopolis.lab2;
+
+import java.util.*;
+import java.io.*;
+
+public class BubbleSort {
+    FastScanner in;
+    PrintWriter out;
+
+    public void swap(int[] array, int i, int j) {
+        int tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+    }
+
+    public void solve() throws IOException {
+    }
+
+    public void run() {
+        try {
+            in = new FastScanner(new File("input.txt"));
+            out = new PrintWriter(new File("output.txt"));
+
+
+            solve();
+
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    class FastScanner {
+        BufferedReader br;
+        StringTokenizer st;
+
+        FastScanner(File f) {
+            try {
+                br = new BufferedReader(new FileReader(f));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String next() {
+            while (st == null || !st.hasMoreTokens()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+    }
+
+    public static void main(String[] arg) {
+        new BubbleSort().run();
+    }
+}
