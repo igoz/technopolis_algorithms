@@ -1,0 +1,114 @@
+package ru.technopolis.lab2;
+
+import javax.jnlp.IntegrationService;
+import java.util.*;
+import java.io.*;
+
+public class AntiQuickSort {
+    FastScanner in;
+    PrintWriter out;
+    int n;
+
+
+    public void swap(int[] array, int i, int j) {
+        int tmp = array[i];
+        array[i] = array[j];
+        array[j] = tmp;
+    }
+
+    public void permute(int[] array) {
+        for (int i = 2; i < array.length; i++) {
+            swap(array, i, i / 2);
+        }
+    }
+
+    public void solve() throws IOException {
+        n = in.nextInt();
+        int size = n;
+        int[] array = new int[n];
+//        int[] array = new int[size];
+//        int[] permutation = new int[size];
+//        for (int i = 0; i < size; i++) {
+//            array[i] = in.nextInt();
+//        }
+
+        for (int i = 0; i < size; i++) {
+            array[i] = i + 1;
+        }
+
+        permute(array);
+
+        for (int i = 0; i < size; i++) {
+            out.append(array[i] + " ");
+        }
+    }
+
+    public void run() {
+        try {
+            in = new FastScanner(new File("D:\\Programming\\Java\\Technopolis\\technopolis_algorithms\\src\\ru\\technopolis\\lab2\\input.txt"));
+            out = new PrintWriter(new File("D:\\Programming\\Java\\Technopolis\\technopolis_algorithms\\src\\ru\\technopolis\\lab2\\output.txt"));
+
+            solve();
+
+            out.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    class FastScanner {
+        BufferedReader br;
+        StringTokenizer st;
+
+        FastScanner(File f) {
+            try {
+                br = new BufferedReader(new FileReader(f));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        String next() {
+            while (st == null || !st.hasMoreTokens()) {
+                try {
+                    st = new StringTokenizer(br.readLine());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            return st.nextToken();
+        }
+
+        boolean hasNextInt() {
+            if (st != null && st.hasMoreTokens()) {
+                return true;
+            } else {
+                try {
+                    String tmp = br.readLine();
+                    if (tmp == null) {
+                        return false;
+                    } else {
+                        st = new StringTokenizer(tmp);
+                        return true;
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            return false;
+        }
+
+        long nextLong() {
+            return Long.parseLong(next());
+        }
+
+        int nextInt() {
+            return Integer.parseInt(next());
+        }
+    }
+
+    public static void main(String[] arg) {
+        new AntiQuickSort().run();
+    }
+}
